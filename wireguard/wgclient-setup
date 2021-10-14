@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# generate public and private keys
+privatekey="$(wg genkey)"
+publickey="$(echo $privatekey | wg pubkey)"
+
+# update wgclient with our private key
+sed -i 's@CLIENT_PRIVATEKEY@'"${privatekey}"'@' wgclient
+
+# set user-data script with public key
+sed -i 's@CLIENT_PUBLICKEY@'"${publickey}"'@' tfscripts/setup.sh
+
+echo "wgclient script configured - copy to /usr/local/bin or another location in your PATH"

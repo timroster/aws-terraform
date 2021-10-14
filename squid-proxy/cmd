@@ -1,0 +1,1 @@
+ssh -i .ssh/aws-ec2 -L3128:localhost:3128 ubuntu@$(terraform output -raw public_ip_address)
